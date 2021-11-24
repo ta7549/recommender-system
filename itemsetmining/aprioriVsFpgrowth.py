@@ -5,6 +5,7 @@ import seaborn as sns
 from initDataAnalysis import new_df
 from mlxtend.frequent_patterns import apriori, fpgrowth
 
+# Time comparision between Apriori and FP Growth algorithms
 min_sup = [0.01, 0.02, 0.03, 0.04, 0.05]
 apriori_time = []
 for x in min_sup:
