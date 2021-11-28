@@ -11,6 +11,7 @@ import pandas_profiling as pp
 import matplotlib.pyplot as plt
 import datetime as dt
 
+# Combining recency, frequency and monetary dataframes
 print("\nConcat of recency, frequency and monetary dataframes ")
 Online_Retail_g_rfm = pd.concat([Online_Retail_g_recency, Online_Retail_g_frequency, Online_Retail_g_monetary], axis =1, join="inner")
 print(Online_Retail_g_rfm.head())

@@ -17,19 +17,25 @@ data.info()
 filter1=data["Country"]=="Germany"
 data = data[filter1]
 
+# removing null value records and removing white spaces in description column for consistency
 print(data.columns[data.isnull().any()])
 data["Description"].value_counts()
 data['Description'] = data['Description'].str.strip()
 
+# removing cancelled item records from the dataset
 data.dropna(subset =['InvoiceNo'], inplace = True)
 data['InvoiceNo'] = data['InvoiceNo'].astype('str')
 data = data[~data['InvoiceNo'].str.contains('C')]
 
+# making dataset ready to input for implementing Apriori and Fp growth algorithms
+
+# Selecting specific columns InvoiceNo,Description and aggregating the records in description for every invoice no
 
 data = data[["InvoiceNo","Description"]]
 new_df = pd.DataFrame(columns=list(data["Description"].unique()))
 print("Unique items in the dataset:", new_df.shape[1])
 
+# creating a binary matrix having items in the description as column headers
 data_new = data.groupby('InvoiceNo').agg({'Description': lambda x: list(x)})
 for index, row in data_new.iterrows():
     value = row['Description']
@@ -68,7 +74,7 @@ dfTable.head(50).style.background_gradient(cmap='Oranges')
 
 s=data[0].to_string(index=False)
 
-
+# wordcloud visualization for top 50 popular items in the dataset
 
 plt.rcParams['figure.figsize'] = (15, 15)
 wordcloud = WordCloud(background_color = 'lightpink', width = 1000,  height = 1000, max_words = 50).generate(s)
@@ -86,6 +92,7 @@ plt.xticks(rotation = 90 )
 plt.grid()
 plt.savefig("../fig/40MostPopular.png")
 
+# creating a dataframe which consists of top 50 popular items
 first50 = dfTable["items"].head(50).values # Select Top50
 new_df = new_df.loc[:,first50] # Extract Top50
 print("top 50 items: ", new_df.columns)

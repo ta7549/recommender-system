@@ -2,16 +2,18 @@ import numpy as np
 from initDataAnalysis import new_df
 from mlxtend.frequent_patterns import apriori
 
+# implementing apriori algorithm and generating itemsets with min support greater than 0.1
 print("\n~~~~~~~~with 10% min support~~~~~~~~~~~~~~~")
 frequentItemsets = apriori(new_df, min_support=0.1, use_colnames=True)
 frequentItemsets['length'] = frequentItemsets['itemsets'].apply(lambda x: len(x))
 print("\nAll itemsets generated using Apriori Algorithm: ")
 print(frequentItemsets)
 
+# generating itemsets of length 2 with min support greater than 0.1
 print("\n Itemsets of length 2: ")
 print(frequentItemsets[ (frequentItemsets['length'] == 2) &
                    (frequentItemsets['support'] >= 0.1) ])
-
+# generating itemsets of length 3 with min support greater than 0.1
 print("\n Itemsets of length 3: ")
 print(frequentItemsets[ (frequentItemsets['length'] == 3) &
                    (frequentItemsets['support'] >= 0.1) ])
@@ -34,7 +36,7 @@ conviction = support_num / support_A_notB_den
 print("Conviction value: %.4f " % conviction)
 
 
-
+# implementing apriori algorithm and generating itemsets with min support greater than 0.01
 print("~~~~~~~~with 1% min support~~~~~~~~~~~~~~~")
 
 frequentItemsets = apriori(new_df, min_support=0.01, use_colnames=True)
@@ -42,20 +44,24 @@ frequentItemsets['length'] = frequentItemsets['itemsets'].apply(lambda x: len(x)
 print("\nAll itemsets generated using Apriori Algorithm: ")
 print(frequentItemsets)
 
+# generating itemsets of length 2 with min support greater than 0.01
 print("\n Itemsets of length 2: ")
 print(frequentItemsets[ (frequentItemsets['length'] == 2) &
                    (frequentItemsets['support'] >= 0.01) ])
 
+# generating itemsets of length 3 with min support greater than 0.01
 print("\n Itemsets of length 3: ")
 print(frequentItemsets[ (frequentItemsets['length'] == 3) &
                    (frequentItemsets['support'] >= 0.01) ])
 
 print("\n ~~~~~~~~~~~~~~~~~~~~~~~")
 
+# generating itemsets of length 2 after removing POSTAGE item with min support greater than 0.01
 print("\n Itemsets of length 2 after removing POSTAGE item: ")
 print(frequentItemsets[~frequentItemsets["itemsets"].str.contains("POSTAGE", regex=False) &
                 (frequentItemsets['length'] == 2)].head())
 
+# generating itemsets of length 3 after removing POSTAGE item with min support greater than 0.01
 print("\n Itemsets of length 3 after removing POSTAGE item: ")
 print(frequentItemsets[~frequentItemsets["itemsets"].str.contains("POSTAGE", regex=False) &
                 (frequentItemsets['length'] == 3)].head())

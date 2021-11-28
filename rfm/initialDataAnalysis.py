@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# reading the dataset
 Online_Retail = pd.read_csv("../data/OnlineRetail.csv", encoding= 'unicode_escape', low_memory=False)
 Online_Retail.info()
 print(Online_Retail.shape)
